@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ajaia Docs</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <!-- Login -->
+  <main id="view-login" class="view" hidden>
+    <form id="login-form" class="card login-card" novalidate>
+      <div class="brand brand-lg"><span class="logo">A</span> Ajaia Docs</div>
+      <p class="muted">Sign in with one of the demo accounts to try owning and sharing documents.</p>
+      <label>Email <input id="login-email" type="email" autocomplete="username" required></label>
+      <label>Password <input id="login-password" type="password" autocomplete="current-password" required></label>
+      <p id="login-error" class="error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-primary">Sign in</button>
+      <div class="demo-accounts">
+        <p class="muted small">Demo accounts (password <code>demo1234</code>). Click one to fill it in:</p>
+        <div class="demo-list">
+          <button type="button" class="chip" data-email="alice@ajaia.test">Alice</button>
+          <button type="button" class="chip" data-email="bob@ajaia.test">Bob</button>
+          <button type="button" class="chip" data-email="carol@ajaia.test">Carol</button>
+        </div>
+      </div>
+    </form>
+  </main>
+
+  <!-- App shell -->
+  <header id="topbar" class="topbar" hidden>
+    <a href="#/" class="brand"><span class="logo">A</span> Ajaia Docs</a>
+    <div class="topbar-right">
+      <span id="current-user" class="muted"></span>
+      <button id="logout-btn" class="btn btn-ghost">Sign out</button>
+    </div>
+  </header>
+
+  <!-- Document list -->
+  <main id="view-list" class="view list-view" hidden>
+    <div class="list-actions">
+      <button id="new-doc-btn" class="btn btn-primary">+ New document</button>
+      <label class="btn btn-secondary file-btn">
+        Import file…
+        <input id="import-input" type="file" accept=".txt,.md,.markdown,.docx" hidden>
+      </label>
+      <span class="muted small">Import supports <strong>.txt</strong>, <strong>.md</strong> and <strong>.docx</strong> (up to 2&nbsp;MB). Each file becomes a new editable document.</span>
+    </div>
+    <p id="list-error" class="error" role="alert" hidden></p>
+
+    <section>
+      <h2 class="section-title">My documents</h2>
+      <ul id="owned-list" class="doc-grid"></ul>
+    </section>
+    <section>
+      <h2 class="section-title">Shared with me</h2>
+      <ul id="shared-list" class="doc-grid"></ul>
+    </section>
+  </main>
+
+  <!-- Editor -->
+  <main id="view-editor" class="view editor-view" hidden>
+    <div class="editor-chrome">
+    <div class="editor-header">
+      <a href="#/" class="btn btn-ghost back-link" aria-label="Back to documents">←</a>
+      <input id="doc-title" class="title-input" maxlength="200" aria-label="Document title">
+      <span id="role-badge" class="badge"></span>
+      <span id="save-status" class="save-status muted small" aria-live="polite"></span>
+      <div class="editor-header-right">
+        <button id="share-btn" class="btn btn-primary" hidden>Share</button>
+        <button id="delete-btn" class="btn btn-ghost danger" hidden>Delete</button>
+      </div>
+    </div>
+
+    <div id="toolbar" class="toolbar" role="toolbar" aria-label="Formatting">
+      <select id="block-select" aria-label="Text style">
+        <option value="p">Normal text</option>
+        <option value="h1">Heading 1</option>
+        <option value="h2">Heading 2</option>
+        <option value="h3">Heading 3</option>
+      </select>
+      <span class="sep"></span>
+      <button data-cmd="bold" title="Bold (Ctrl+B)" aria-label="Bold"><b>B</b></button>
+      <button data-cmd="italic" title="Italic (Ctrl+I)" aria-label="Italic"><i>I</i></button>
+      <button data-cmd="underline" title="Underline (Ctrl+U)" aria-label="Underline"><u>U</u></button>
+      <button data-cmd="strikeThrough" title="Strikethrough" aria-label="Strikethrough"><s>S</s></button>
+      <span class="sep"></span>
+      <button data-cmd="insertUnorderedList" title="Bulleted list" aria-label="Bulleted list">• List</button>
+      <button data-cmd="insertOrderedList" title="Numbered list" aria-label="Numbered list">1. List</button>
+      <span class="sep"></span>
+      <button data-cmd="undo" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button>
+      <button data-cmd="redo" title="Redo (Ctrl+Shift+Z)" aria-label="Redo">↷</button>
+      <button data-cmd="removeFormat" title="Clear formatting" aria-label="Clear formatting">Tx</button>
+    </div>
+
+    <div id="banner" class="banner" hidden></div>
+    </div>
+
+    <div class="page-wrap">
+      <article id="editor" class="page" spellcheck="true" aria-label="Document body"></article>
+    </div>
+  </main>
+
+  <!-- Share dialog -->
+  <dialog id="share-dialog" class="dialog">
+    <form id="share-form" method="dialog" novalidate>
+      <h2>Share “<span id="share-doc-title"></span>”</h2>
+      <div class="share-row">
+        <input id="share-email" type="email" list="user-options" placeholder="Email, e.g. bob@ajaia.test" aria-label="Email to share with" required>
+        <datalist id="user-options"></datalist>
+        <select id="share-role" aria-label="Access level">
+          <option value="editor">Can edit</option>
+          <option value="viewer">Can view</option>
+        </select>
+        <button id="share-submit" type="submit" class="btn btn-primary" value="share">Share</button>
+      </div>
+      <p id="share-error" class="error" role="alert" hidden></p>
+      <h3 class="small muted">People with access</h3>
+      <ul id="share-list" class="share-list"></ul>
+      <div class="dialog-actions">
+        <button type="button" id="share-close" class="btn btn-secondary">Done</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" hidden></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
