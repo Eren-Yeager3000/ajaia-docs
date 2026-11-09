@@ -1,6 +1,6 @@
 # AI workflow note
 
-> ✏️ **Before submitting:** this note describes how the build actually went. Edit it so it is in your own voice, and add anything from your own review and testing (for example, bugs you found when you clicked through it yourself). Reviewers will ask about it in the walkthrough.
+
 
 ## Tools used
 
