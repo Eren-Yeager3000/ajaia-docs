@@ -2,7 +2,7 @@
 
 A lightweight collaborative document editor inspired by Google Docs, built for the Ajaia AI-Native Full Stack Developer assignment.
 
-**Live demo:** `<PASTE YOUR RENDER URL HERE>` (free tier; the first request after idling can take ~50 s to wake up)
+**Live demo:** `https://ajaia-docs-o6es.onrender.com/#/` (free tier; the first request after idling can take ~50 s to wake up)
 
 ## What it does
 
