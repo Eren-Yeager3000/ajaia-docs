@@ -1,6 +1,6 @@
 # Submission: Ajaia Docs
 
-**Live product URL:** `<PASTE YOUR RENDER URL HERE>`
+**Live product URL:** `https://ajaia-docs-o6es.onrender.com/#/`
 **Walkthrough video:** see `VIDEO_URL.txt`
 **Source repository:** `<OPTIONAL: GitHub URL>`
 
